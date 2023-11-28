@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+      
+        .cart-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .total-section {
+            margin-top: 20px;
+        }
+        .product-img{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-dark  px-5">
+    <a class="navbar-brand px-5 text-white" href="#">Shopping Cart</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Cart</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    
+    
+    
+    <div id="result" class="">
+</div>
+
+
+<script>
+  
+    fetch("https://dummyjson.com/carts")
+  .then(data=>data.json()) 
+  .then(data=>{console.log(data)
+  displayCarts(data)
+})
+function displayCarts(data){
+for( pro of data.carts){
+for(product of pro.products){
+  output=`
+  
+  <div class="cart-item">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>${product.id}</h4>
+                <img src="${product.thumbnail}" alt="Product Image" class="img-fluid product-img">
+                <h4>${product.title}</h4>
+                <p>Description of the product goes here.</p>
+            </div>
+            
+            <div class="col-lg-6 py-5">
+                <p>Price : ${product.price} (per piece)</p>
+                <p>Qty : ${product.quantity}</p>
+                <p>Price : ${product.total} (${product.quantity})</p>
+                    <p class="text-success font-weight-bold">Discount : ${product.discountPercentage}</p>
+                    <p class="font-weight-bold"> Total : ${product.discountedPrice}/-</p>
+                    <button class="btn btn-primary">ADD</button>
+            </div>
+        </div>
+    </div>
+
+    `
+
+      result.innerHTML+=output;
+}
+}
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
